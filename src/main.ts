@@ -1,16 +1,21 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-
+// import fetch from "node-fetch";
 // Remember to rename these classes and interfaces!
-import {S2OSettings} from './types'
-import {S2OSettingTab,DEFAULT_SETTINGS} from './settings/index'
+import { S2OSettings } from './types'
+import { S2OSettingTab, DEFAULT_SETTINGS } from './settings/index'
+import { fetch_games_data } from './service/index'
 
-
+// type FetchFunction = typeof window.fetch;
+// const node_fetch: FetchFunction = fetch as unknown as FetchFunction;
 
 export default class S2oPlugin extends Plugin {
 	settings: S2OSettings;
-
+	// originalFetch: any;
 	async onload() {
 		await this.loadSettings();
+		// this.originalFetch = window.fetch;
+		// window.fetch = node_fetch;	
+
 
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('dice', 'Steam2Obsidian Plugin', (evt: MouseEvent) => {
@@ -24,6 +29,14 @@ export default class S2oPlugin extends Plugin {
 		const statusBarItemEl = this.addStatusBarItem();
 		statusBarItemEl.setText('Status Bar Text');
 
+
+		this.addCommand({
+			id: 'get_steam_player_games',
+			name: 'get_steam_player_games',
+			callback: () => {
+				fetch_games_data(this.settings.steamID, this.settings.steamAPIKey)
+			}
+		})
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
 			id: 'open-sample-modal-simple',
@@ -75,7 +88,7 @@ export default class S2oPlugin extends Plugin {
 	}
 
 	onunload() {
-
+		// window.fetch = this.originalFetch;	
 	}
 
 	async loadSettings() {
@@ -93,12 +106,12 @@ class SampleModal extends Modal {
 	}
 
 	onOpen() {
-		const {contentEl} = this;
+		const { contentEl } = this;
 		contentEl.setText('Woah!');
 	}
 
 	onClose() {
-		const {contentEl} = this;
+		const { contentEl } = this;
 		contentEl.empty();
 	}
 }

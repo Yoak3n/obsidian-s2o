@@ -6,23 +6,26 @@ import { FolderSuggest } from './suggesters/FolderSuggester';
 
 export const DEFAULT_SETTINGS: S2OSettings = {
 	steamAPIKey: '',
-    steamID: '',
-    dir: ''
+	steamID: '',
+	dir: ''
 }
 
 
 export class S2OSettingTab extends PluginSettingTab {
-    plugin: S2oPlugin
+	plugin: S2oPlugin
 
-    constructor(app: App, plugin: S2oPlugin) {
-        super(app, plugin);
-        this.plugin = plugin;
-    }
+	constructor(app: App, plugin: S2oPlugin) {
+		super(app, plugin);
+		this.plugin = plugin;
+	}
 
-    display() {
-        const { containerEl } = this
+	display() {
+		const { containerEl } = this
 
-        containerEl.empty();
+		containerEl.empty();
+		new Setting(containerEl)
+			.setName('Steam')
+			.setHeading()
 
 		new Setting(containerEl)
 			.setName('Steam API Key')
@@ -45,13 +48,17 @@ export class S2OSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				}));
 
-        new Setting(containerEl)
+		new Setting(containerEl)
+			.setName('Output')
+			.setHeading()
+
+		new Setting(containerEl)
 			.setName('Output Directory')
 			.setDesc('Specify the output directory')
-            .addSearch((search) => {
-				try{
-					new FolderSuggest(this.app,search.inputEl);
-				}catch(err){
+			.addSearch((search) => {
+				try {
+					new FolderSuggest(this.app, search.inputEl);
+				} catch (err) {
 					console.log(err);
 				}
 				search.setPlaceholder('Enter the output directory')
@@ -63,13 +70,13 @@ export class S2OSettingTab extends PluginSettingTab {
 			}
 
 
-            )
-			// .addText(text => text
-			// 	.setPlaceholder('Enter the output directory')
-			// 	.setValue(this.plugin.settings.dir)
-			// 	.onChange(async (value) => {
-			// 		this.plugin.settings.dir = value;
-			// 		await this.plugin.saveSettings();
-			// 	}));
-    }
+			)
+		// .addText(text => text
+		// 	.setPlaceholder('Enter the output directory')
+		// 	.setValue(this.plugin.settings.dir)
+		// 	.onChange(async (value) => {
+		// 		this.plugin.settings.dir = value;
+		// 		await this.plugin.saveSettings();
+		// 	}));
+	}
 }

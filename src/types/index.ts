@@ -3,3 +3,5 @@ export interface S2OSettings {
     steamID: string;
     dir: string;
 }
+
+export * from './response/vault'
