@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { Notice, Plugin } from 'obsidian';
 
 import { S2OSettings } from './types'
 import { S2OSettingTab, DEFAULT_SETTINGS } from './settings/index'
@@ -35,10 +35,12 @@ export default class S2oPlugin extends Plugin {
 		
 		this.addSettingTab(new S2OSettingTab(this.app, this));
 		if (this.settings.auto_update) {
-			this.updateGamesTime();
-			if (this.settings.fetchAchievement) {
-				this.updateGamesAchievement()
-			}
+			console.log('5秒后自动更新游戏信息')
+			setTimeout(() => {
+				this.updateGamesTime()
+				if (this.settings.fetchAchievement) this.updateGamesAchievement()
+			}, 5000)
+
 		}
 		
 	}
