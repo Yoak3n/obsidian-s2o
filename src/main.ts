@@ -13,9 +13,8 @@ export default class S2oPlugin extends Plugin {
 
 
 		// This creates an icon in the left ribbon.
-		const ribbonIconEl = this.addRibbonIcon('dice', 'Steam2Obsidian Plugin', (evt: MouseEvent) => {
-			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
+		const ribbonIconEl = this.addRibbonIcon('dice', '更新游戏时长和成就', (evt: MouseEvent) => {
+			this.updateGamesInfo()
 		});
 		// Perform additional things with the ribbon
 		ribbonIconEl.addClass('my-plugin-ribbon-class');
@@ -31,16 +30,18 @@ export default class S2oPlugin extends Plugin {
 				fetch_games_data(this.settings,this.app)
 			}
 		})
-
+		this.addCommand({
+			id: 'update_steam_player_games',
+			name: 'Update Steam Player Games',
+			callback: () => {
+				this.updateGamesInfo()
+			}
+		})
 		
 		this.addSettingTab(new S2OSettingTab(this.app, this));
 		if (this.settings.auto_update) {
 			console.log('5秒后自动更新游戏信息')
-			setTimeout(() => {
-				this.updateGamesTime()
-				if (this.settings.fetchAchievement) this.updateGamesAchievement()
-			}, 5000)
-
+			setTimeout(() => this.updateGamesInfo(), 5000)
 		}
 		
 	}
@@ -61,6 +62,11 @@ export default class S2oPlugin extends Plugin {
 		this.statusBarItemEl.setText(text);
 	}
 	
+	async updateGamesInfo(){
+		await this.updateGamesTime()
+		if (this.settings.fetchAchievement) this.updateGamesAchievement()
+	}
+
 	async updateGamesTime() {
 		this.updateStatusBarText('更新游戏时间...')
 		await update_games_time(this.settings,this.app)

@@ -31,7 +31,7 @@ export class S2OSettingTab extends PluginSettingTab {
 			.setName('General')
 		new Setting(containerEl)
 			.setName('Auto Update')
-			.setDesc('Auto update the games time')
+			.setDesc('Auto update on startup')
 			.addToggle((toggle) => {
 				toggle.setValue(this.plugin.settings.auto_update)
 				toggle.onChange(async (value) => {
