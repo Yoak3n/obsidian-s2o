@@ -34,7 +34,7 @@ export default class S2oPlugin extends Plugin {
 			id: 'get_steam_player_games',
 			name: 'get_steam_player_games',
 			callback: () => {
-				fetch_games_data(this.settings.steamID, this.settings.steamAPIKey)
+				fetch_games_data(this.settings.steamID, this.settings.steamAPIKey,this.app)
 			}
 		})
 		// This adds a simple command that can be triggered anywhere
@@ -84,7 +84,7 @@ export default class S2oPlugin extends Plugin {
 		// });
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+		// this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
 
 	onunload() {
