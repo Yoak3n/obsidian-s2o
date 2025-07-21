@@ -4,9 +4,9 @@ interface GameVaultData {
 
 interface ResponseField {
   game_count : number
-  games : Array<Game>
+  games : Array<GameInfo>
 }
-export interface Game {
+export interface GameInfo {
   appid: number
   name: string
   playtime_forever: number

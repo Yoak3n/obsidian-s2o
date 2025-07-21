@@ -1,9 +1,6 @@
-import { App, Notice, SuggestModal } from "obsidian";
+import { App, SuggestModal } from "obsidian";
+import type { GameRange } from '../types/index'
 
-interface GameRange {
-  title :string
-  index: number
-}
 
 
 export class GamesRangeSuggester extends SuggestModal<GameRange> {

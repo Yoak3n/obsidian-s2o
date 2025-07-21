@@ -7,7 +7,10 @@ import { FolderSuggest } from './suggesters/FolderSuggester';
 export const DEFAULT_SETTINGS: S2OSettings = {
 	steamAPIKey: '',
 	steamID: '',
-	dir: ''
+	dir: '',
+	fetchAchievement: false,
+	ignoreUtilities: false,
+	auto_update: false,
 }
 
 
@@ -24,9 +27,22 @@ export class S2OSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 		new Setting(containerEl)
+			.setHeading()
+			.setName('General')
+		new Setting(containerEl)
+			.setName('Auto Update')
+			.setDesc('Auto update the games time')
+			.addToggle((toggle) => {
+				toggle.setValue(this.plugin.settings.auto_update)
+				toggle.onChange(async (value) => {
+					this.plugin.settings.auto_update = value;
+					await this.plugin.saveSettings();
+				})
+			})
+
+		new Setting(containerEl)
 			.setName('Steam')
 			.setHeading()
-
 		new Setting(containerEl)
 			.setName('Steam API Key')
 			.setDesc('It\'s a secret')
@@ -47,7 +63,28 @@ export class S2OSettingTab extends PluginSettingTab {
 					this.plugin.settings.steamID = value;
 					await this.plugin.saveSettings();
 				}));
+		new Setting(containerEl)
+			.setName('Fetch Achievement')
+			.setDesc('Fetch the user\'s achievement')
+			.addToggle((toggle) => {
+				toggle.setValue(this.plugin.settings.fetchAchievement)
+				toggle.onChange(async (value) => {
+					this.plugin.settings.fetchAchievement = value;
+					await this.plugin.saveSettings();
+				})
+			})
+		new Setting(containerEl)
+			.setName('Ignore utilities')
+			.setDesc('Ignore the utilities games')
+			.addToggle((toggle) => {
+				toggle.setValue(this.plugin.settings.ignoreUtilities)
+				toggle.onChange(async (value) => {
+					this.plugin.settings.ignoreUtilities = value;
+					await this.plugin.saveSettings();
+				})
+			})
 
+		
 		new Setting(containerEl)
 			.setName('Output')
 			.setHeading()
@@ -67,16 +104,6 @@ export class S2OSettingTab extends PluginSettingTab {
 						this.plugin.settings.dir = value;
 						await this.plugin.saveSettings();
 					})
-			}
-
-
-			)
-		// .addText(text => text
-		// 	.setPlaceholder('Enter the output directory')
-		// 	.setValue(this.plugin.settings.dir)
-		// 	.onChange(async (value) => {
-		// 		this.plugin.settings.dir = value;
-		// 		await this.plugin.saveSettings();
-		// 	}));
+			})
 	}
 }
