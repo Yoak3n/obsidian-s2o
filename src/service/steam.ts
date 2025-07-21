@@ -10,7 +10,7 @@ async function make_requests_with_retry(uri: string, option: any, max_retries: n
       }
       if (attempt < max_retries){
         const wait_time = retry_delay * (2 ** attempt)
-        setTimeout(()=>{},wait_time*1000)
+        await new Promise(resolve => setTimeout(resolve, wait_time*1000))
       }else{
         return res
       }
@@ -34,7 +34,7 @@ export async function get_steam_player_games(steam_id :string,api_key: string){
     'timeout': 30,
   }
   const res = await make_requests_with_retry(uri,option)
-  if (res?.status != 200){
+  if (res == null || res?.status != 200){
     throw Error(`Failed to get vault:${res?.body}`)
   }
   return await res.json() as GameVault
