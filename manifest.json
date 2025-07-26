@@ -4,8 +4,11 @@
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "Import Steam games' data to Obsidian",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"author": "Yoake",
+	"authorUrl": "https://github.com/Yoake",
+	"fundingUrl": "https://github.com/Yoake",
+	"repo": "https://github.com/Yoake/obsidian-s2o",
+	"bugs": "https://github.com/Yoake/obsidian-s2o/issues",
+	"license": "MIT",
 	"isDesktopOnly": false
 }

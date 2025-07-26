@@ -111,7 +111,7 @@ export async function update_games_achievement(settings: S2OSettings, app: App):
       
       const achievementTotalMatch = content.match(/Achievements:\s*(\d+)\/(\d+)/)
       if (!achievementTotalMatch) {
-        console.log(`游戏 ${gameId} 没有成就信息，跳过`)
+        // console.log(`游戏 ${gameId} 没有成就信息，跳过`)
         continue
       }
       
