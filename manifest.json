@@ -3,12 +3,11 @@
 	"name": "Steam2Obsidian",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Import Steam games' data to Obsidian",
+	"description": "Import Steam games' data to my vault",
 	"author": "Yoake",
-	"authorUrl": "https://github.com/Yoake",
-	"fundingUrl": "https://github.com/Yoake",
-	"repo": "https://github.com/Yoake/obsidian-s2o",
-	"bugs": "https://github.com/Yoake/obsidian-s2o/issues",
+	"authorUrl": "https://github.com/Yoak3n",
+	"repo": "https://github.com/Yoak3n/obsidian-s2o",
+	"bugs": "https://github.com/Yoak3n/obsidian-s2o/issues",
 	"license": "MIT",
 	"isDesktopOnly": false
 }
