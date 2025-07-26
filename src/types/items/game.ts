@@ -41,7 +41,7 @@ export class Game {
      * 获取分隔线内的游戏信息内容
      */
     toString(): string {
-        let output = `---
+        const output = `---
 GameID: ${this.game_id}
 Genres: [${this.genres.join(',')}]
 Platforms: [${this.platforms.join(',')}]

@@ -37,7 +37,7 @@ export default class S2oPlugin extends Plugin {
 		
 		this.addSettingTab(new S2OSettingTab(this.app, this));
 		if (this.settings.auto_update) {
-			console.log('5秒后自动更新游戏信息')
+			console.log('[S2O]5秒后自动更新游戏信息')
 			setTimeout(() => this.updateGamesInfo(), 5000)
 		}
 		

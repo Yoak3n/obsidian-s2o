@@ -4,7 +4,7 @@ import type { GameVault} from 'src/types'
 const OPTION = {
   'method': 'GET',
   'headers': {
-    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,zh-TW;q=0.5',
+    'Accept-Language': 'zh-CN,zh;q=0.9,zh-TW;q=0.8,en;q=0.7,en-US;q=0.6,en-GB;q=0.5',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
   },
   'timeout': 30,
@@ -23,6 +23,7 @@ async function make_requests_with_retry(uri: string, option: any, max_retries: n
         console.log(`Retry attempt ${attempt+1} for ${uri} failed with status ${res.status}. Retrying in ${wait_time} seconds...`);
         await new Promise(resolve => setTimeout(resolve, wait_time*1000))
       }else{
+        console.error(`Max retries reached for ${uri}. Status: ${res.status}`)
         return res
       }
     } catch (e) {

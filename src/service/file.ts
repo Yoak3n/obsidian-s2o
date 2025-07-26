@@ -1,4 +1,4 @@
-import { App, TFolder, TFile } from "obsidian"
+import { App, TFolder, TFile, normalizePath } from "obsidian"
 import { GameInfo, S2OSettings } from "src/types"
 import { get_steam_game_achievement, get_steam_game_info, get_steam_player_games } from "./steam"
 import { Game } from '../types/index'
@@ -10,8 +10,8 @@ export async function update_games_time(settings: S2OSettings, app: App) {
   const data = await get_steam_player_games(settings.steamID, settings.steamAPIKey)
   const games = data.response.games
   let count = 0
-  const folderPath = settings.dir || ''
-  let folder = app.vault.getAbstractFileByPath(folderPath)
+  const folderPath = normalizePath(settings.dir || '')
+  const folder = app.vault.getAbstractFileByPath(folderPath)
 
   if (!folder) {
     console.error(`目标文件夹不存在: ${folderPath}`)
@@ -83,8 +83,8 @@ export async function update_games_time(settings: S2OSettings, app: App) {
 
 
 export async function update_games_achievement(settings: S2OSettings, app: App):Promise<number> {
-  const folderPath = settings.dir || ''
-  let folder = app.vault.getAbstractFileByPath(folderPath)
+  const folderPath = normalizePath(settings.dir || '')
+  const folder = app.vault.getAbstractFileByPath(folderPath)
   let count =  0
   if (!folder) {
     console.error(`目标文件夹不存在: ${folderPath}`)
@@ -159,7 +159,7 @@ export async function update_games_achievement(settings: S2OSettings, app: App):
 export async function handleGames(settings: S2OSettings, game_data: Array<GameInfo>, app: App) {
   let games: Game[] = []
   // 确保目标文件夹存在
-  const folderPath = settings.dir || ''
+  const folderPath = normalizePath(settings.dir || '')
   let folder = app.vault.getAbstractFileByPath(folderPath)
 
   if (!folder) {
@@ -191,7 +191,7 @@ export async function handleGames(settings: S2OSettings, game_data: Array<GameIn
       games.push(game)
 
       const fileName = `${sanitizeFilename(game.name)}.md`
-      const filePath = `${folderPath}/${fileName}`
+      const filePath = normalizePath(`${folderPath}/${fileName}`)
 
       const existingFile = app.vault.getAbstractFileByPath(filePath)
 

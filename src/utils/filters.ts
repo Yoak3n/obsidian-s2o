@@ -6,7 +6,7 @@ const invailed_genres = ['免费开玩', '线上玩家对战', 'Steam 成就', '
 
 /**
  * 过滤无效的游戏类型
- * @param genres 游戏类型数组
+ * @param genres - 游戏类型数组
  * @returns 过滤后的游戏类型数组
  */
 export function filterInvalidGenres(genres: string[]): string[] {

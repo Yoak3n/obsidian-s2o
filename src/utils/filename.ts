@@ -1,6 +1,6 @@
 /**
  * 转义正则表达式中的特殊字符
- * @param string 需要转义的字符串
+ * @param string - 需要转义的字符串
  * @returns 转义后的字符串
  */
 function escapeRegExp(string: string): string {
@@ -9,7 +9,7 @@ function escapeRegExp(string: string): string {
 
 /**
  * 清理文件名，替换非法字符
- * @param filename 原始文件名
+ * @param filename - 原始文件名
  * @returns 清理后的文件名
  */
 export function sanitizeFilename(filename: string): string {

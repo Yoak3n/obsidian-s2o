@@ -1,8 +1,8 @@
-import { App, TFile } from 'obsidian';
+import { App, normalizePath, TFile } from 'obsidian';
 
 /**
  * 读取现有文件内容，返回分隔线前后的内容
- * @param content 文件内容字符串
+ * @param content - 文件内容字符串
  * @returns 分隔线前后的内容 [前内容, 后内容]
  */
 export function readExistingContent(content: string): [string, string] {
@@ -49,7 +49,8 @@ export function readExistingContent(content: string): [string, string] {
  */
 export async function readExistingContentFromPath(filePath: string, app: App): Promise<[string, string]> {
     try {
-        const file = app.vault.getAbstractFileByPath(filePath);
+        const normalizedPath = normalizePath(filePath);
+        const file = app.vault.getAbstractFileByPath(normalizedPath);
         if (!(file instanceof TFile)) {
             return ['', ''];
         }
