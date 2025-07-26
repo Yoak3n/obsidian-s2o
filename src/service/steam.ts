@@ -1,5 +1,15 @@
 import fetch,{type Response} from 'node-fetch'
-import type { GameVault,GameInfo } from 'src/types'
+import type { GameVault} from 'src/types'
+
+const OPTION = {
+  'method': 'GET',
+  'headers': {
+    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,zh-TW;q=0.5',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
+  },
+  'timeout': 30,
+}
+
 async function make_requests_with_retry(uri: string, option: any, max_retries: number = 5, retry_delay: number = 1.0) :Promise<Response | null>{
   const retry_status_codes = [403, 429, 500, 502, 503, 504]
   for (let attempt = 0; attempt < max_retries; attempt++) {
@@ -24,17 +34,10 @@ async function make_requests_with_retry(uri: string, option: any, max_retries: n
 
 
 export async function get_steam_player_games(steam_id :string,api_key: string){
-  console.log('fetch steam play\'s game list...')
+  console.log('[S2O]fetch steam player\'s game list...')
   const uri  = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${api_key}&steamid=${steam_id}&include_appinfo=true&format=json`
-  const option = {
-    'method': 'GET',
-    'headers': {
-      'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,zh-TW;q=0.5',
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
-    },
-    'timeout': 30,
-  }
-  const res = await make_requests_with_retry(uri,option)
+
+  const res = await make_requests_with_retry(uri,OPTION)
   if (res == null || res?.status != 200){
     throw Error(`Failed to get vault:${res?.body}`)
   }
@@ -43,15 +46,8 @@ export async function get_steam_player_games(steam_id :string,api_key: string){
 
 export async function get_steam_game_achievement(app_id:string, steam_id:string, api_key:string):Promise<any>{
   const uri  = `http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?key=${api_key}&steamid=${steam_id}&appid=${app_id}`
-  const option = {
-    'method': 'GET',
-    'headers': {
-      'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,zh-TW;q=0.5',
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
-    },
-    'timeout': 30,
-  }
-  const res = await make_requests_with_retry(uri,option)  
+
+  const res = await make_requests_with_retry(uri,OPTION)  
 
   if (res == null || res?.status != 200){
     return { playerstats: { error: 'Failed to fetch achievements' } }
@@ -66,18 +62,9 @@ export async function get_steam_game_achievement(app_id:string, steam_id:string,
 }
 
 export async function get_steam_game_info(app_id:string){
-  console.log('fetch steam game info...')
   const uri  = `https://store.steampowered.com/api/appdetails?appids=${app_id}`
-  const option = {
-    'method': 'GET',
-    'headers': {
-      'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6,zh-TW;q=0.5',
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0',
-    },
-    'timeout': 30,
-  }
-  const res = await make_requests_with_retry(uri,option)  
 
+  const res = await make_requests_with_retry(uri, OPTION)  
   if (res == null || res?.status != 200){
     return { success: false, data: null }
   }

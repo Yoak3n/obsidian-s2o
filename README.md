@@ -1,94 +1,111 @@
-# Obsidian Sample Plugin
+# Steam2Obsidian (S2O)
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+![GitHub release](https://img.shields.io/github/v/release/Wanglongzhi2022/obsidian-s2o)
+![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22obsidian-s2o%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)
 
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
+一个将Steam游戏数据导入Obsidian的插件，支持自动更新游戏时长、成就和游戏信息。
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+## 功能特点
 
-## First time developing plugins?
+- 从Steam API获取您的游戏库数据
+- 将游戏信息导入为Obsidian笔记
+- 自动更新游戏时长和最后游玩时间
+- 自动更新游戏成就进度
+- 支持按游戏时长、最近游玩时间等筛选游戏
+- 可选择是否忽略工具类游戏
+- 支持自动更新功能
 
-Quick starting guide for new plugin devs:
+## 安装
 
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+### 从Obsidian社区插件市场安装
 
-## Releasing new releases
+1. 打开Obsidian设置
+2. 进入「社区插件」选项卡
+3. 关闭「安全模式」
+4. 点击「浏览」按钮
+5. 搜索「Steam2Obsidian」
+6. 点击安装
+7. 安装完成后启用插件
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
+### 手动安装
 
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
+1. 下载最新版本的发布文件
+2. 解压文件到您的Obsidian库的`.obsidian/plugins/obsidian-s2o`目录下
+3. 重启Obsidian
+4. 在设置中启用插件
 
-## Adding your plugin to the community plugin list
+## 使用方法
 
-- Check the [plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines).
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+### 配置插件
 
-## How to use
+1. 打开Obsidian设置
+2. 进入「Steam2Obsidian」设置选项卡
+3. 填写以下必要信息：
+   - **Steam API Key**：您的Steam API密钥（可从[Steam开发者网站](https://steamcommunity.com/dev/apikey)获取）
+   - **Steam ID**：您的Steam ID（可使用[SteamID查询工具](https://steamid.io/)查询）
+   - **输出目录**：游戏笔记将保存的Obsidian目录路径
+4. 可选配置：
+   - **获取成就**：是否获取游戏成就信息
+   - **忽略工具**：是否忽略「实用工具」类别的游戏
+   - **自动更新**：是否启用每次打开Obsidian时自动更新游戏时长和成就信息
 
-- Clone this repo.
-- Make sure your NodeJS is at least v16 (`node --version`).
-- `npm i` or `yarn` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
+### 导入游戏数据
 
-## Manually installing the plugin
+1. 点击Obsidian左侧边栏的Steam图标，或使用命令面板执行「Steam2Obsidian: 获取Steam游戏列表并导入」命令
+2. 在弹出的选择器中选择要导入的游戏范围：
+   - 仅游玩时间超过100小时的游戏
+   - 仅最近两个月游玩的游戏
+   - 仅游玩过的游戏
+   - 所有游戏
+3. 插件将自动获取游戏信息并创建或更新笔记
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
+### 更新游戏数据
 
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint .\src\`
+- 点击Obsidian左侧边栏的更新图标，或使用命令面板执行「Steam2Obsidian: 更新游戏时长」命令可更新所有游戏的游玩时长和最后游玩时间
+- 使用命令面板执行「Steam2Obsidian: 更新游戏成就」命令可更新所有游戏的成就进度
 
-## Funding URL
+## 笔记格式
 
-You can include funding URLs where people who use your plugin can financially support it.
+每个游戏笔记包含以下元数据：
 
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
-
-```json
-{
-    "fundingUrl": "https://buymeacoffee.com"
-}
+```yaml
+GameID: 游戏ID
+Genres: [游戏类型]
+Platforms: [支持平台]
+MetacriticScore: 评分（如果有）
+PlayedHours: 游玩时长
+LastPlayed: 最后游玩时间
+Achievements: 已获得成就/总成就数
+Cover: 游戏封面图片URL
+Description: 游戏简介
 ```
 
-If you have multiple URLs, you can also do:
+您可以在笔记的元数据区域下方添加自己的笔记内容，插件更新时会保留您添加的内容。
 
-```json
-{
-    "fundingUrl": {
-        "Buy Me a Coffee": "https://buymeacoffee.com",
-        "GitHub Sponsor": "https://github.com/sponsors",
-        "Patreon": "https://www.patreon.com/"
-    }
-}
-```
+## 常见问题
 
-## API Documentation
+### 如何获取Steam API Key？
 
-See https://github.com/obsidianmd/obsidian-api
+1. 访问[Steam开发者网站](https://steamcommunity.com/dev/apikey)
+2. 登录您的Steam账户
+3. 填写域名（可以填写任意域名，如`localhost`）
+4. 同意条款并点击「注册」
+5. 复制生成的API密钥
+
+### 如何查找我的Steam ID？
+
+1. 访问[SteamID查询工具](https://steamid.io/)
+2. 输入您的Steam个人资料URL或用户名
+3. 查找「steamID64」字段，这就是您需要的Steam ID
+
+### 为什么有些游戏没有成就信息？
+
+不是所有Steam游戏都支持成就系统。如果游戏没有成就系统，或者Steam API无法获取该游戏的成就信息，则不会显示成就数据。
+
+## 支持与反馈
+
+如果您遇到问题或有改进建议，请在GitHub仓库提交Issue。
+
+---
+
+**注意**：本插件需要访问Steam API，请确保您的API密钥安全，不要分享给他人。

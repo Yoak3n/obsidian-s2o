@@ -25,17 +25,14 @@ export default class S2oPlugin extends Plugin {
 		
 		this.addCommand({
 			id: 'get_steam_player_games',
-			name: 'Get Steam Player Games',
-			callback: () => {
-				fetch_games_data(this.settings,this.app)
-			}
+			name: '获取Steam游戏列表并导入',
+			callback: () => fetch_games_data(this.settings,this.app)
+			
 		})
 		this.addCommand({
 			id: 'update_steam_player_games',
-			name: 'Update Steam Player Games',
-			callback: () => {
-				this.updateGamesInfo()
-			}
+			name: '更新游戏时长和成就',
+			callback: () => this.updateGamesInfo()
 		})
 		
 		this.addSettingTab(new S2OSettingTab(this.app, this));
@@ -63,25 +60,32 @@ export default class S2oPlugin extends Plugin {
 	}
 	
 	async updateGamesInfo(){
-		await this.updateGamesTime()
-		if (this.settings.fetchAchievement) this.updateGamesAchievement()
+		const tc = await this.updateGamesTime()
+		if (this.settings.fetchAchievement) {
+			const ac = await this.updateGamesAchievement()
+			new Notice(`成功更新${tc}个游戏的时长信息和${ac}个游戏的成就信息`)
+		}else{
+			new Notice(`成功更新${tc}个游戏的时长信息`)
+		}
 	}
 
 	async updateGamesTime() {
 		this.updateStatusBarText('更新游戏时间...')
-		await update_games_time(this.settings,this.app)
+		const tc = await update_games_time(this.settings,this.app)
 		this.updateStatusBarText('游戏时间更新完成')
 		setTimeout(() => {
 			this.updateStatusBarText('')
 		}, 3000)
+		return tc
 	}
 	async updateGamesAchievement() {
 		this.updateStatusBarText('更新游戏成就...')
-		await update_games_achievement(this.settings,this.app)
+		const ac = await update_games_achievement(this.settings,this.app)
 		this.updateStatusBarText('游戏成就更新完成')
 		setTimeout(() => {
 			this.updateStatusBarText('')
 		}, 3000)
+		return ac
 	}
 }
 

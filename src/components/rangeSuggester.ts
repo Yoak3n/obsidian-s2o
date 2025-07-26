@@ -41,7 +41,6 @@ export class GamesRangeSuggester extends SuggestModal<GameRange> {
   // Renders each suggestion item.
   renderSuggestion(option: GameRange, el: HTMLElement) {
     el.createEl("div", { text: option.title });
-    // el.createEl("small", { text: option.index.toString()});
   }
 
   // Perform action on the selected suggestion.
