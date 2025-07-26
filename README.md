@@ -18,9 +18,9 @@
 ## 安装
 
 ### 从Obsidian社区插件市场安装
-
+（测试阶段，不支持从社区插件市场安装）
 1. 打开Obsidian设置
-2. 进入「社区插件」选项卡
+2. 进入「第三方插件」选项卡
 3. 关闭「安全模式」
 4. 点击「浏览」按钮
 5. 搜索「Steam2Obsidian」
@@ -29,10 +29,12 @@
 
 ### 手动安装
 
-1. 下载最新版本的发布文件
-2. 解压文件到您的Obsidian库的`.obsidian/plugins/obsidian-s2o`目录下
-3. 重启Obsidian
-4. 在设置中启用插件
+1. 使用[BRAT](https://github.com/TfTHacker/obsidian42-brat)插件安装
+2. 点击「Add beta plugin」按钮
+3. 输入插件仓库地址「https://github.com/Yoak3n/obsidian-s2o」
+4. 点击「Add」按钮
+5. 重启Obsidian
+6. 在设置中启用插件
 
 ## 使用方法
 
