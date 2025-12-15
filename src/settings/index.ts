@@ -43,6 +43,16 @@ export class S2OSettingTab extends PluginSettingTab {
                 })
             })
         new Setting(containerEl)
+            .setName('Proxy')
+            .setDesc('Set proxy for network requests (e.g., http://127.0.0.1:7890)')
+            .addText(text => text
+                .setPlaceholder('Enter your proxy')
+                .setValue(this.plugin.settings.proxy)
+                .onChange(async (value) => {
+                    this.plugin.settings.proxy = value;
+                    await this.plugin.saveSettings();
+                }));
+        new Setting(containerEl)
             .setName('Enable Proxy')
             .setDesc('Enable proxy.Restart Obsidian after disabling the proxy.')
             .setTooltip('Restart Obsidian after disabling the proxy.')
@@ -53,16 +63,6 @@ export class S2OSettingTab extends PluginSettingTab {
                     await this.plugin.saveSettings();
                 })
             })
-        new Setting(containerEl)
-            .setName('Proxy')
-            .setDesc('Set proxy for network requests (e.g., http://127.0.0.1:7890)')
-            .addText(text => text
-                .setPlaceholder('Enter your proxy')
-                .setValue(this.plugin.settings.proxy)
-                .onChange(async (value) => {
-                    this.plugin.settings.proxy = value;
-                    await this.plugin.saveSettings();
-                }));
 
         new Setting(containerEl)
             .setName('Steam')
