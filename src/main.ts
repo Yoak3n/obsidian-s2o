@@ -1,6 +1,7 @@
 import { Notice, Plugin } from 'obsidian';
 
 import { S2OSettings } from './types'
+import { loadProxy } from './utils/proxy';
 import { S2OSettingTab, DEFAULT_SETTINGS } from './settings/index'
 import { fetch_games_data,update_games_time, update_games_achievement } from './service/index'
 
@@ -10,8 +11,7 @@ export default class S2oPlugin extends Plugin {
 	statusBarItemEl: HTMLElement;
 	async onload() {
 		await this.loadSettings();
-
-
+       
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('dice', '更新游戏时长和成就', (evt: MouseEvent) => {
 			this.updateGamesInfo()
@@ -49,10 +49,16 @@ export default class S2oPlugin extends Plugin {
 
 	async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+         if (this.settings.enableProxy ) {
+            loadProxy(this.settings.proxy);
+        }
 	}
 
 	async saveSettings() {
 		await this.saveData(this.settings);
+        if (this.settings.enableProxy) {
+            loadProxy(this.settings.proxy);
+        }
 	}
 
 	async updateStatusBarText(text: string) {

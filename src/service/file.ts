@@ -1,6 +1,6 @@
 import { App, TFolder, TFile, normalizePath } from "obsidian"
 import { GameInfo, S2OSettings } from "src/types"
-import { get_steam_game_achievement, get_steam_game_info, get_steam_player_games } from "./steam"
+import { get_steam_game_achievement, get_steam_game_info, get_steam_player_games } from "../apis/steam"
 import { Game } from '../types/index'
 import { sanitizeFilename } from '../utils/filename'
 import { readExistingContentFromPath } from '../utils/fileContent'

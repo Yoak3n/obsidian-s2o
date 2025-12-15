@@ -1,6 +1,6 @@
 import { App, Notice } from 'obsidian'
 
-import { get_steam_player_games } from './steam'
+import { get_steam_player_games } from '../apis/steam'
 
 import { GamesRangeSuggester } from '../components/index'
 import type { GameInfo, GameRange, S2OSettings } from '../types/index'

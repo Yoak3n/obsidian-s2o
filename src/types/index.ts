@@ -3,7 +3,8 @@ export interface S2OSettings {
 	steamAPIKey: string;
     steamID: string;
     dir: string;
-
+    enableProxy: boolean;
+    proxy: string;
     fetchAchievement: boolean;
     ignoreUtilities: boolean;
 }
