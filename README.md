@@ -2,7 +2,7 @@
 
 ![GitHub release](https://img.shields.io/github/v/release/Yoak3n/obsidian-s2o)
 ![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22obsidian-s2o%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)
-
+-->
 一个将Steam游戏数据导入Obsidian的插件，支持自动更新游戏时长、成就和游戏信息。
 
 ## 功能特点
@@ -47,6 +47,7 @@
    - **Steam ID**：您的Steam ID（可使用[SteamID查询工具](https://steamid.io/)查询）
    - **输出目录**：游戏笔记将保存的Obsidian目录路径
 4. 可选配置：
+   - **设置代理**：部分api请求不稳定，需要使用代理
    - **获取成就**：是否获取游戏成就信息
    - **忽略工具**：是否忽略「实用工具」类别的游戏
    - **自动更新**：是否启用每次打开Obsidian时自动更新游戏时长和成就信息
